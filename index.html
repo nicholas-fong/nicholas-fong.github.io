@@ -3,13 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Learning JavaScript</title>
+    <title>Find Prime Numbers</title>
 </head>
 
 <body>
-    <h1>Learning JavaScript</h1>
-    <ul>
-    <li><a href="prime/index.html">Find Prime Numbers</a></li>
-    </ul>
+
+
+    <h1>Find primes near a given number</h1>
+    <label for="numberInput">Enter a number:</label>
+    <input type="number" id="numberInput">
+    <button onclick="findAndDisplayPrimes()">Find Nearby Primes</button>
+
+    <div id="result"></div>
+    <br>
+    <div id="notice"></div> 
+    
+    
+    <script src="prime.js"></script>
 </body>
 </html>
