@@ -55,10 +55,14 @@ function findNearbyPrimes(target, limit) {
 function findAndDisplayPrimes() {
     const num = parseInt(document.getElementById("numberInput").value, 10);
     const primesNearNum = findNearbyPrimes(num, 200);
-    // now doing output
+
+    // output results
     document.getElementById("result").innerHTML = `Prime numbers near ${num}:<br><br>${primesNearNum.join(", ")}`;
-    const textBefore = "Your number: ";
+    const textBefore = "Your number ";
     const textAfter = " is prime ";
-    if (isPrime(num)) document.getElementById("demo").innerHTML = `${textBefore}${num}${textAfter}`; 
+    if (isPrime(num)) {
+       document.getElementById("notice").innerHTML = `${textBefore}${num}${textAfter}` 
+    }; 
+
 }
 
