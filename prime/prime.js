@@ -61,8 +61,7 @@ function findAndDisplayPrimes() {
     const textBefore = "Your number ";
     const textAfter = " is prime ";
     if (isPrime(num)) {
-       document.getElementById("notice").innerHTML = `${textBefore}${num}${textAfter}` 
+       document.getElementById("notice").innerHTML = `${textBefore}<strong>${num}</strong>${textAfter}` 
     }; 
-
 }
 
