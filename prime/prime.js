@@ -58,7 +58,7 @@ function findAndDisplayPrimes() {
     // send results to HTML
     document.getElementById("display").innerHTML = `<br>Prime numbers near ${num}:<br><br>${primesNearNum.join(", ")}`;
     if (isPrime(num)) {
-       document.getElementById("notice").innerHTML = `Your number <em>${num}</em> is a prime` 
+        document.getElementById("notice").innerHTML = `Your number <em>${num}</em> is a prime<br>hit F5/refresh for another prime calculation`; 
     }; 
 }
 
