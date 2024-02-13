@@ -47,21 +47,18 @@ function findNearbyPrimes(target, limit) {
             }
         }
     }
-
     return primes.sort((a, b) => a - b);
-    
 }
 
 function findAndDisplayPrimes() {
-    const num = parseInt(document.getElementById("numberInput").value, 10);
+    // parse user input string to an Integer
+    const num = parseInt(document.getElementById("numberInput").value);
     const primesNearNum = findNearbyPrimes(num, 200);
 
-    // output results
-    document.getElementById("result").innerHTML = `Prime numbers near ${num}:<br><br>${primesNearNum.join(", ")}`;
-    const textBefore = "Your number ";
-    const textAfter = " is prime ";
+    // send results to HTML
+    document.getElementById("display").innerHTML = `<br>Prime numbers near ${num}:<br><br>${primesNearNum.join(", ")}`;
     if (isPrime(num)) {
-       document.getElementById("notice").innerHTML = `${textBefore}<strong>${num}</strong>${textAfter}` 
+       document.getElementById("notice").innerHTML = `Your number <em>${num}</em> is a prime` 
     }; 
 }
 
