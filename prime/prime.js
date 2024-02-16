@@ -50,15 +50,20 @@ function findNearbyPrimes(target, limit) {
     return primes.sort((a, b) => a - b);
 }
 
-function findAndDisplayPrimes() {
-    // parse user input string to an Integer
-    const num = parseInt(document.getElementById("numberInput").value);
-    const primesNearNum = findNearbyPrimes(num, 200);
+// only ECMAScript script can use "export" keyword.
 
+export function findAndDisplayPrimes() {
+    //using DOM, get user input
+    const num = parseInt(document.getElementById("numberID").value);
+    console.log("user entered", num)
+    //const num = parseInt(document.getElementById("numberID").value);
+    const primesNearNum = findNearbyPrimes(num, 200);
     // send results to HTML
     document.getElementById("display").innerHTML = `<br>Prime numbers near ${num}:<br><br>${primesNearNum.join(", ")}`;
+    console.log(primesNearNum.join(", "));
     if (isPrime(num)) {
-        document.getElementById("notice").innerHTML = `Your number <em>${num}</em> is a prime<br>hit F5/refresh for another prime calculation`; 
+        document.getElementById("response").innerHTML = `Your number <em>${num}</em> is a prime<p>F5/Refresh for another prime calculation`; 
+        console.log("user's number is prime", num)
     }; 
 }
 
