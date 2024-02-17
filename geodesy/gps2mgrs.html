@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPS to DMS and MGRS</title>
+</head>
+<body>
+    <h4>Convert latitude longitude to DMS, DM, MGRS and UTM</h4>
+    <p>Using the geodesy library<br> 
+    https://github.com/chrisveness/geodesy<br>
+    https://cdn.jsdelivr.net/npm/geodesy@2.4.0/</p>
+    <p>Practice using ES6 import export syntax</p>
+    </p>
+    <label for="stringInput">GPS lat lon:</label>
+    <input type="text" id="stringInput">
+    <button id="parseButton">Enter</button>
+    <br>
+    <br>Degree Minutes Seconds
+    <br><div id="response1"></div>
+    <br>Degress Minutes
+    <br><div id="response2"></div>
+    <br>MGRS
+    <br><div id="response3"></div>
+    <br>UTM
+    <br><div id="response4"></div>
+    
+  <script type="module">  // can and must use (ES6 (ECMAScript 2015) syntax)
+    // to make parseGPS() from a different module accessible here
+    import { parseGPS } from './parseGPS.js';
+    // Get the button element and input element
+    const parseButton = document.getElementById('parseButton');
+    const stringInput = document.getElementById('stringInput');
+    // event listener listens to the button, wait for a click event
+    // on click event, call a function parseGPS in a different "module"
+    parseButton.addEventListener('click', function() {
+    // on click, call parseGPS("string") to execute the rest of the logic.
+        parseGPS(stringInput.value);
+        });
+  </script>
+</body>
+</html>

@@ -1,10 +1,10 @@
-//parseCoordinates.js
+//parseGPS.js
 //import LatLon from './latlon-spherical.js'; better from mgrs.js
 //import Utm from './utm.js';
 //import LatLonEllipsoidal from './latlon-ellipsoidal.js'
-import { LatLon } from './mgrs.js';
+import  { LatLon } from './mgrs.js';
 
-export function parseCoordinates(inputString) {
+export function parseGPS(inputString) {
     // Split the input into latitude and longitude using a regular expression
     var coordinates = inputString.split(/[,\s]+/);
   
@@ -34,9 +34,15 @@ export function parseCoordinates(inputString) {
     const point = new LatLon(latitude, longitude);
     const utm = point.toUtm();
     const mgrs = utm.toMgrs();
-    console.log(mgrs);
+    console.log(mgrs);  //Mgrs class object {zone: 10, band: 'U, etc}
     console.log(utm)
     document.getElementById('response3').textContent = mgrs
     document.getElementById('response4').textContent = utm
+
+    const latlon_from_mgrs = mgrs.toUtm().toLatLon();
+    console.log(latlon_from_mgrs.lat, latlon_from_mgrs.lon);
+    console.log(`Latitude: ${latitude} Longitude: ${longitude}`);
+    //document.getElementById('response5').textContent = latlon_from_mgrs
+
 }
   
