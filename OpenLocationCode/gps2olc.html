@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Location Code</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.6.0/math.min.js"></script>
+    
+    <script src="openlocationcode.js"></script>
+    
+    <script>
+        // Event handler function to handle form submission
+        function convertToFullCode() {
+            const coordinates = document.getElementById('coordinates').value;
+            const [latitude, longitude] = coordinates.split(/[,\s]+/).map(Number);
+            try {
+                const result = encode(latitude, longitude);
+                document.getElementById('result').innerText = `OpenLocationCode:  ${result}`;
+            } catch (error) {
+                document.getElementById('result').innerText = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Coordinates to OpenLocationCode</h2>
+    <form id="converterForm" onsubmit="convertToFullCode(); return false;">
+        <label for="coordinates">GPS coordinates:</label>
+        <input type="text" id="coordinates" name="coordinates" placeholder="latitude, longitude" required><br><br>
+        
+        <button type="submit">Convert</button>
+    </form>
+    <p id="result"></p>
+</body>
+</html>
