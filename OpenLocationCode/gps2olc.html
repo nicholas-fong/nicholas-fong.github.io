@@ -13,10 +13,14 @@
             const coordinates = document.getElementById('coordinates').value;
             const [latitude, longitude] = coordinates.split(/[,\s]+/).map(Number);
             try {
-                const result = encode(latitude, longitude);
-                document.getElementById('result').innerText = `OpenLocationCode:  ${result}`;
+                const result1 = encode(latitude, longitude);
+                const result2 = encode(latitude, longitude, 11);
+                const result3 = encode(latitude, longitude, 12);
+                document.getElementById('result1').innerText = `13.5x13.5 meter area,  OpenLocationCode:  ${result1}`;
+                document.getElementById('result2').innerText = ` 2.8x3.5  meter area,  OpenLocationCode:  ${result2}`;
+                document.getElementById('result3').innerText = `0.35x0.35 meter area,  OpenLocationCode:  ${result3}`;
             } catch (error) {
-                document.getElementById('result').innerText = `Error: ${error.message}`;
+                document.getElementById('result1').innerText = `Error: ${error.message}`;
             }
         }
     </script>
@@ -29,6 +33,8 @@
         
         <button type="submit">Convert</button>
     </form>
-    <p id="result"></p>
+    <p id="result1"></p>
+    <p id="result2"></p>
+    <p id="result3"></p>
 </body>
 </html>
