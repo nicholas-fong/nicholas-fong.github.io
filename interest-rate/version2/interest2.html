@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return on Investment Calculator</title>
+</head>
+<body>
+
+    <h2>Return on Investment Calculator</h2>
+    
+    <form id="interestform">
+        <label for="principal">Principal Amount:</label>
+        <input type="number" id="principal" name="principal" step="1" placeholder="Principal" required>
+        <br><br>
+        <label for="finalAmount">Final Amount:</label>
+        <input type="number" id="finalAmount" name="finalAmount" step="1" placeholder="Final Amount" required>
+        <br><br>
+        <label for="years">Number of Years:</label>
+        <input type="number" id="years" name="years" step="0.1" placeholder="decimal years" required>
+        <br><br>
+        <label for="times">Times Compounded Per Year:</label>
+        <input type="number" id="times" name="times" placeholder="1 or 2" required>
+        <br><br>
+        <button type="button" id="calculate">Calculate</button>
+    </form>
+
+    <p>HTML/JavaScript ES6 Standard. Use of Arrow function calculateAnnualInterestRate handleFormSubmit</p>
+    <p>const and let are used. EventListener added to button for click event</p> 
+    <p>Template literals used for string interpolation in the result output</p>
+	<p>can run without http.server</p>
+    
+
+    <p id="result"></p>
+
+<script src="calculator2.js"></script>
+
+</body>
+</html>
