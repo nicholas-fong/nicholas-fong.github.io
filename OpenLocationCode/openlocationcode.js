@@ -1,3 +1,27 @@
+// Copyright 2014 Google Inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the 'License');
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an 'AS IS' BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// Original contributors: https://github.com/google/open-location-code
+// https://github.com/google/open-location-code/tree/main/python
+// Python OLC code is converted to JavaScript using online code converter, and OpenAI
+// the conversion is not perfect
+// moderate manual debugging is needed, especially in the encode() function
+// where immutable objects needed to be changed to mutable objects.
+// some extraneous variables in encode() needed to be corrected.
+// this modified JavaScript library consists of simple and useful functions:
+// encode(), decode(), recoverNearest()
+
 // A separator used to break the code into two parts to aid memorability.
 const SEPARATOR_ = '+';
 
@@ -158,6 +182,17 @@ function isFull(code) {
     return true;
 }
 
+//   Encode a location, default accuracy:
+//   encode(47.365590, 8.524997)
+
+//   Encode a location using one stage of additional refinement:
+//   encode(47.365590, 8.524997, 11)
+
+//# Codes represent rectangular areas rather than points, and the longer the
+//# code, the smaller the area. A 10 character code represents a 13.5x13.5
+//# meter area (at the equator. A 11 character code represents approximately
+//# a 2.8x3.5 meter area. A 12 character code represents 0.35x0.35 meter area.
+
 function encode(latitude, longitude, codeLength = PAIR_CODE_LENGTH_) {
     if (codeLength < 2 || (codeLength < PAIR_CODE_LENGTH_ && codeLength % 2 === 1)) {
         throw new Error('Invalid Open Location Code length - ' + codeLength);
@@ -169,39 +204,29 @@ function encode(latitude, longitude, codeLength = PAIR_CODE_LENGTH_) {
     longitude = normalizeLongitude(longitude);
 
     // Latitude 90 needs to be adjusted to be just less, so the returned code
-    // can also be decoded.
     if (latitude === 90) {
         latitude = latitude - computeLatitudePrecision(codeLength);
     }
     let code = '';
 
-    // Compute the code.
-    // This approach converts each value to an integer after multiplying it by
-    // the final precision. This allows us to use only integer operations, so
-    // avoiding any accumulation of floating point representation errors.
-
-    // Multiply values by their precision and convert to positive.
-    // Force to integers so the division operations will have integer results.
-    // Note: Python requires rounding before truncating to ensure precision!
     let latVal = Math.round((latitude + LATITUDE_MAX_) * FINAL_LAT_PRECISION_);
     let lngVal = Math.round((longitude + LONGITUDE_MAX_) * FINAL_LNG_PRECISION_);
 
     // Compute the grid part of the code if necessary.
     if (codeLength > PAIR_CODE_LENGTH_) {
-        let latValTemp = latVal;
-        let lngValTemp = lngVal;
         for (let i = 0; i < MAX_DIGIT_COUNT_ - PAIR_CODE_LENGTH_; i++) {
-            const latDigit = latValTemp % GRID_ROWS_;
-            const lngDigit = lngValTemp % GRID_COLUMNS_;
-            const ndx = latDigit * GRID_COLUMNS_ + lngDigit;
+            let latDigit = latVal % GRID_ROWS_;
+            let lngDigit = lngVal % GRID_COLUMNS_;
+            let ndx = latDigit * GRID_COLUMNS_ + lngDigit;
             code = CODE_ALPHABET_[ndx] + code;
-            latValTemp = Math.floor(latValTemp / GRID_ROWS_);
-            lngValTemp = Math.floor(lngValTemp / GRID_COLUMNS_);
+            latVal = Math.floor(latVal / GRID_ROWS_);
+            lngVal = Math.floor(lngVal / GRID_COLUMNS_);
         }
     } else {
         latVal = Math.floor(latVal / Math.pow(GRID_ROWS_, GRID_CODE_LENGTH_));
         lngVal = Math.floor(lngVal / Math.pow(GRID_COLUMNS_, GRID_CODE_LENGTH_));
     }
+
     // Compute the pair section of the code.
     for (let i = 0; i < PAIR_CODE_LENGTH_ / 2; i++) {
         code = CODE_ALPHABET_[lngVal % ENCODING_BASE_] + code;
@@ -212,7 +237,7 @@ function encode(latitude, longitude, codeLength = PAIR_CODE_LENGTH_) {
 
     // Add the separator character.
     code = code.substring(0, SEPARATOR_POSITION_) + SEPARATOR_ + code.substring(SEPARATOR_POSITION_);
-
+    
     // If we don't need to pad the code, return the requested section.
     if (codeLength >= SEPARATOR_POSITION_) {
         return code.substring(0, codeLength + 1);
@@ -222,13 +247,16 @@ function encode(latitude, longitude, codeLength = PAIR_CODE_LENGTH_) {
     return code.substring(0, codeLength) + '0'.repeat(SEPARATOR_POSITION_ - codeLength) + SEPARATOR_;
 }
 
+//   Decode a full code to GPS coordinates. 
+//   code = "84XV62QM+QJ"
+//   codeArea = decode(code)
+//   let [latitude, longitude] = CodeArea.latlng();
+//   let result = latitude.toFixed(5) + ', ' + longitude.toFixed(5);
+
 function decode(code) {
     if (!isFull(code)) {
         throw new Error('Passed Open Location Code is not a valid full code - ' + code);
     }
-    // Strip out separator character (we've already established the code is
-    // valid so the maximum is one), and padding characters. Convert to upper
-    // case and constrain to the maximum number of digits.
     code = code.replace(/[+0]/g, '').toUpperCase();
     code = code.substring(0, MAX_DIGIT_COUNT_);
     // Initialise the values for each section. We work them out as integers and
@@ -241,7 +269,7 @@ function decode(code) {
     let digits = Math.min(code.length, PAIR_CODE_LENGTH_);
     // Define the place value for the most significant pair.
     let pv = PAIR_FIRST_PLACE_VALUE_;
-    // Decode the paired digits.
+    // Decode the most significant paired digits.
     for (let i = 0; i < digits; i += 2) {
         normalLat += CODE_ALPHABET_.indexOf(code[i]) * pv;
         normalLng += CODE_ALPHABET_.indexOf(code[i + 1]) * pv;
@@ -291,6 +319,10 @@ function decode(code) {
     );
 }
 
+//#   Recover the full code from a short code:
+//#   recoverNearest('9G8F+6X', 47.4, 8.6)
+//#   recoverNearest('8F+6X', 47.4, 8.6)
+
 function recoverNearest(code, referenceLatitude, referenceLongitude) {
     // if code is a valid full code, return it properly capitalized
     if (isFull(code)) {
@@ -302,7 +334,7 @@ function recoverNearest(code, referenceLatitude, referenceLongitude) {
     // Ensure that latitude and longitude are valid.
     referenceLatitude = clipLatitude(referenceLatitude);
     referenceLongitude = normalizeLongitude(referenceLongitude);
-    // Clean up the passed code.
+    // Clean up the code passed as parmeter.
     code = code.toUpperCase();
     // Compute the number of digits we need to recover.
     let paddingLength = SEPARATOR_POSITION_ - code.indexOf(SEPARATOR_);
