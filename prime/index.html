@@ -2,28 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Prime Numbers</title>
 </head>
 
 <body>
     <h1>Find prime numbers</h1>
-    <p>-Practice coding "input" and "button" to acquire user input,
-        plus using "addEventListener" to listen for button-click</p>
-    <P>-Parctice ES6 export import syntax to
-        pass function references between scripts (script tag with type="module")</P>
-
     <p>        
-    <label for="numberID">Enter number:</label>
-    <input type="number" id="numberID">
-    <button id="buttonID">Find</button>
-    </p>
-    <script type="module" >  //EC6 ECMAScript; functions are encapsulated by default
+    <form>
+        <label for="numberID">Enter a number: </label>
+        <input type="number" id="numberID" placeholder="integer">
+        <button type="button" id="buttonId" >Find</button>
+    </form>
+        
+    <script type="module" > //ES6 ECMAScript; functions are encapsulated; use import
         import {findAndDisplayPrimes} from './prime.js';
-        const waiting_button = document.getElementById('buttonID');
-        waiting_button.addEventListener('click', function() {
-            findAndDisplayPrimes();
-            });
+    
+        const findButton = document.getElementById('buttonId');
+    
+        findButton.addEventListener('click', () => {
+            const numberInput = document.getElementById('numberID').value;
+            const number = parseInt(numberInput, 10);
+            console.log(number)
+            
+            // Clear previous response
+            document.getElementById('response').innerText = '';
+
+            // Check if the input is a valid number
+            if (isNaN(number)) {
+                document.getElementById('response').innerText = 'Please enter a valid number';
+            } else {
+                findAndDisplayPrimes(number);
+            }
+        });
     </script>
 
     <div id="display"></div>
