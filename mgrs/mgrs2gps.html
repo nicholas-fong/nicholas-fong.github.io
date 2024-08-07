@@ -13,30 +13,27 @@
       dms.js latlon-ellipsoidal-datum.js latlon-ellipsoidal.js mgrs.js utm.js vector3d.js <br>  
       source 1 - https://github.com/chrisveness/geodesy<br>
       source 2 - https://cdn.jsdelivr.net/npm/geodesy@2.4.0/<br>
-      This code relaxes to allows input to have spaces and lower case, which is not allowed in MGRS<p> 
+      This code relaxes to allows input to have spaces and lower case, which is not formal MGRS<p> 
     </p>
     
+    <div>
     <label for="MGRSinput">MGRS:</label>
     <input type="string" id="MGRSinput">
     <button id="parseButton">Enter</button>
-    <br>
+    </div>
 
     <br>Latitude Longitude:
     <br><div id="response1"></div>
     <br>Another lat lon notation:
     <br><div id="response2"></div>
-    <br><b><div id="message"></div></b></div>
+    <br><strong><div id="message"></div></strong></div>
 
   <script type="module">  // ES6 (ECMAScript 2015) syntax
     import { parseMGRS } from './parseMGRS.js';
-    
-    const parseButton = document.getElementById('parseButton');
-    const MGRSinput = document.getElementById('MGRSinput');
-    
-    parseButton.addEventListener('click', ()=> {
-        parseMGRS(MGRSinput.value);
+    document.getElementById('parseButton').addEventListener('click', ()=> {
+        parseMGRS(document.getElementById('MGRSinput').value);
         });
-
   </script>
+
 </body>
 </html>
