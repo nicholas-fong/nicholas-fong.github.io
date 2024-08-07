@@ -1,29 +1,31 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // const form = document.getElementById('interestform');
-    const result = document.getElementById('result');
-    const calculateButton = document.getElementById('calculate');
+// calculator2.js
+function handleForm () {
+    const principal = parseFloat(document.getElementById('principal').value);
+    const finalAmount = parseFloat(document.getElementById('finalAmount').value);
+    const years = parseInt(document.getElementById('years').value, 10);
+    const timesInput = document.getElementById('times').value;
+    const result = document.getElementById('result'); // Ensure result is defined
 
-    const calculateAnnualInterestRate = (principal, finalAmount, times, years) => {
-        const rate = times * (Math.pow(finalAmount / principal, 1 / (times * years)) - 1) * 100;
-        return rate.toFixed(2);
-    };
+    // Check if "times" input is empty (using strict equality) and set it to 1 if empty
+    // use ternary (or conditional) operator: condition ? exprIfTrue : exprIfFalse
+    const times = timesInput === "" ? 1 : parseInt(timesInput, 10);
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        const principal = parseFloat(document.getElementById('principal').value);
-        const finalAmount = parseFloat(document.getElementById('finalAmount').value);
-        const years = parseInt(document.getElementById('years').value, 10);
-        const times = parseInt(document.getElementById('times').value, 10);
+    if (isNaN(principal) || isNaN(finalAmount) || isNaN(years) || isNaN(times)) {
+        result.textContent = 'Please enter valid numbers in Principal, Final Amount, Years';
+        return;
+    }
 
-        if (isNaN(principal) || isNaN(finalAmount) || isNaN(years) || isNaN(times)) {
-            result.textContent = 'Please enter valid numbers in all fields.';
-            return;
-        }
+    const rate = calculateAnnualInterestRate(principal, finalAmount, times, years);
+    result.textContent = `The annual interest rate is ${rate}%.`;
+};
 
-        const rate = calculateAnnualInterestRate(principal, finalAmount, times, years);
-        result.textContent = `The annual interest rate is ${rate}%.`;
-    };
+function calculateAnnualInterestRate (principal, finalAmount, times, years) {
+    const rate = times * (Math.pow(finalAmount / principal, 1 / (times * years)) - 1) * 100;
+    return rate.toFixed(2);
+};
 
-    calculateButton.addEventListener('click', handleFormSubmit);
+// Add event listener for the button click
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('buttonId').addEventListener('click', handleForm);
 });
 

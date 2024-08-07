@@ -7,33 +7,32 @@
 </head>
 <body>
 
-    <h2>Return on Investment Calculator</h2>
+    <h2>Return on Investment Calculator, version 3</h2>
 
-    <form id="interestform">
+    <div>
+    ES6 Standard scripts. type="module", import/export modular approach. <br>
+    Use of Arrow function handleForm <br>
+    EventListener added to button click event <br>
+	must run with http.server because import/export keywords are used in scripts<br><br>
+    </div>
+
+    <div>
         <label for="principal">Principal Amount:</label>
-        <input type="number" id="principal" name="principal" step="1" placeholder="Principal" required>
-        <br><br>
+        <input type="number" id="principal" name="principal" step="1" placeholder="Principal" required><br><br>
         <label for="finalAmount">Final Amount:</label>
-        <input type="number" id="finalAmount" name="finalAmount" step="1" placeholder="Final Amount" required>
-        <br><br>
+        <input type="number" id="finalAmount" name="finalAmount" step="1" placeholder="Final Amount" required><br><br>
         <label for="years">Number of Years:</label>
-        <input type="number" id="years" name="years" step="0.1" placeholder="decimal years" required>
-        <br><br>
+        <input type="number" id="years" name="years" step="0.1" placeholder="decimal years" required><br><br>
         <label for="times">Times Compounded Per Year:</label>
-        <input type="number" id="times" name="times" placeholder="1 or 2" required>
-        <br><br>
-        <button type="button" id="calculate">Calculate</button>
-    </form>
-    
-    <p>ES6 Standard scripts with import and export modular approach.</p> 
-    <p>Use of Arrow function handleFormSubmit calculateAnnualInterestRate</p>
-    <p>const and let are used. EventListener added to button for click event</p> 
-    <p>Template literals used for string interpolation in the result output</p>
-	<p>must run with http.server</p>
+        <input type="number" id="times" name="times" placeholder="1 or 2" required><br><br>
+        <button type="click" id="buttonId">Calculate ROI</button>
+    </div>
 
+    <div>
     <p id="result"></p>
+    </div>
 
-<script src="calculator3.js" type="module"></script>
+    <script src="calculator3.js" type="module"></script>
 
 </body>
 </html>

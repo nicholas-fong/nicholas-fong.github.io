@@ -9,27 +9,20 @@
 
     <h2>Return on Investment Calculator</h2>
 
+    Simple HTML/JavaScript in one file. <br>
+    Traditional button/onclick function calls<br>
+    Assume interest payment interval is once a year<br>
+    can run without http.server<br><br>
+
     <form id="interestform">
         <label for="principal">Principal amount</label>
-        <input type="text" id="principal" placeholder="Principal" required>
-        <br><br>
+        <input type="text" id="principal" placeholder="Principal" required><br><br>
         <label for="final">Final amount</label>
-        <input type="text" id="final" placeholder="Final Amount" required>
-        <br><br>
+        <input type="text" id="final" placeholder="Final Amount" required><br><br>
         <label for="duration">Duration in years</label>
-        <input type="text" id="duration" placeholder="decimal years" required>
-        <br><br>
-        <button type="button" onclick="CalculateROI()">Calculate ROI</button>
+        <input type="text" id="duration" placeholder="decimal years" required><br><br>
+        <button type="button" onclick="CalculateROI()">Calculate ROI</button><br><br>
     </form>
-
-
-
-
-    <p>Simple HTML/JavaScript in one file. </p>
-    <p>Original style button/onclick function calls</p>
-    <p>Assume interest payment interval is once a year</p>
-    <p>can run without http.server</p>
-
 
     <p id="result"></p>
 

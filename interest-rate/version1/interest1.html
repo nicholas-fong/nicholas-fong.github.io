@@ -9,46 +9,39 @@
 
     <h2>Return on Investment Calculator</h2>
 
+    Simple HTML/JavaScript in one file.<br>
+    Use of EventListener and Arrow function<br>
+    Assume interest payment interval is once a year<br>
+    can run without http.server<br>
+
     <form id="interestform">
         <label for="principal">Principal amount</label>
-        <input type="text" id="principal" placeholder="Principal" required>
-        <br><br>
+        <input type="text" id="principal" placeholder="Principal" required><br><br>
         <label for="final">Final amount</label>
-        <input type="text" id="final" placeholder="Final Amount" required>
-        <br><br>
+        <input type="text" id="final" placeholder="Final Amount" required><br><br>
         <label for="duration">Duration in years</label>
-        <input type="text" id="duration" placeholder="decimal years" required>
-        <br><br>
-        <button type="button" id="calculateBtn">Calculate ROI</button>
+        <input type="text" id="duration" placeholder="decimal years" required><br><br>
+        <button type="button" id="buttonId">Calculate ROI</button>
     </form>
-
-
-
-
-    <p>Simple HTML/JavaScript in one file.</p>
-    <p>Use of EventListener and Arrow function</p>
-    <p>Assume interest payment interval is once a year</p>
-    <p>can run without http.server</p>
-
 
     <p id="result"></p>
 
-<script>
-    document.getElementById('calculateBtn').addEventListener('click', () => {
-        const principal = parseFloat(document.getElementById('principal').value);
-        const finalAmount = parseFloat(document.getElementById('final').value);
-        const duration = parseFloat(document.getElementById('duration').value);
+    <script>
+        document.getElementById('buttonId').addEventListener('click', () => {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const finalAmount = parseFloat(document.getElementById('final').value);
+            const duration = parseFloat(document.getElementById('duration').value);
 
-        if (isNaN(principal) || isNaN(finalAmount) || isNaN(duration) || principal <= 0 || finalAmount <= 0 || duration <= 0) {
-            document.getElementById('result').textContent = "Please enter valid positive numbers for all fields.";
-            return;
-        }
+            if (isNaN(principal) || isNaN(finalAmount) || isNaN(duration) || principal <= 0 || finalAmount <= 0 || duration <= 0) {
+                document.getElementById('result').textContent = "Please enter valid positive numbers for all fields.";
+                return;
+            }
 
-        const rate = Math.pow(finalAmount / principal, 1 / duration) - 1;
-        const interest = rate * 100;
+            const rate = Math.pow(finalAmount / principal, 1 / duration) - 1;
+            const interest = rate * 100;
 
-        document.getElementById('result').textContent = `Interest: ${interest.toFixed(1)} percent`;
-    });
-</script>
+            document.getElementById('result').textContent = `Interest: ${interest.toFixed(2)} percent`;
+        });
+    </script>
 </body>
 </html>
