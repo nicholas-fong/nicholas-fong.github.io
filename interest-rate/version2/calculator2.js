@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('interestform');
+    // const form = document.getElementById('interestform');
     const result = document.getElementById('result');
     const calculateButton = document.getElementById('calculate');
 

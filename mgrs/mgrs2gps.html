@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MGRS to latitude longitude</title>
+</head>
+
+<body>
+    <h3>Convert MGRS to latitude and longitude</h3>
+
+    <p>Using local copies of geodesy library<br> 
+      dms.js latlon-ellipsoidal-datum.js latlon-ellipsoidal.js mgrs.js utm.js vector3d.js <br>  
+      source 1 - https://github.com/chrisveness/geodesy<br>
+      source 2 - https://cdn.jsdelivr.net/npm/geodesy@2.4.0/<br>
+      This code relaxes to allows input to have spaces and lower case, which is not allowed in MGRS<p> 
+    </p>
+    
+    <label for="MGRSinput">MGRS:</label>
+    <input type="string" id="MGRSinput">
+    <button id="parseButton">Enter</button>
+    <br>
+
+    <br>Latitude Longitude:
+    <br><div id="response1"></div>
+    <br>Another lat lon notation:
+    <br><div id="response2"></div>
+    <br><b><div id="message"></div></b></div>
+
+  <script type="module">  // ES6 (ECMAScript 2015) syntax
+    import { parseMGRS } from './parseMGRS.js';
+    
+    const parseButton = document.getElementById('parseButton');
+    const MGRSinput = document.getElementById('MGRSinput');
+    
+    parseButton.addEventListener('click', ()=> {
+        parseMGRS(MGRSinput.value);
+        });
+
+  </script>
+</body>
+</html>

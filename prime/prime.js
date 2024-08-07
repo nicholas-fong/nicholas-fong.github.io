@@ -50,7 +50,7 @@ function findNearbyPrimes(target, limit) {
     return primes.sort((a, b) => a - b);
 }
 
-// ES6 ECMAScript: use "export" keyword
+// ES6 ECMAScript
 
 export function findAndDisplayPrimes() {
     const num = parseInt(document.getElementById("numberID").value);
