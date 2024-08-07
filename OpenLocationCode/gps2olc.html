@@ -4,37 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Location Code</title>
-    
-    <script src="openlocationcode.js"></script>
-    
-    <script>
-        // Event handler function to handle form submission
-        function convertToFullCode() {
-            const coordinates = document.getElementById('coordinates').value;
-            const [latitude, longitude] = coordinates.split(/[,\s]+/).map(Number);
-            try {
-                const result1 = encode(latitude, longitude);
-                const result2 = encode(latitude, longitude, 11);
-                const result3 = encode(latitude, longitude, 12);
-                document.getElementById('result1').innerText = `13.5x13.5 meter area,  OpenLocationCode:  ${result1}`;
-                document.getElementById('result2').innerText = ` 2.8x3.5  meter area,  OpenLocationCode:  ${result2}`;
-                document.getElementById('result3').innerText = `0.35x0.35 meter area,  OpenLocationCode:  ${result3}`;
-            } catch (error) {
-                document.getElementById('result1').innerText = `Error: ${error.message}`;
-            }
-        }
-    </script>
 </head>
+
 <body>
     <h2>Coordinates to OpenLocationCode</h2>
-    <form id="converterForm" onsubmit="convertToFullCode(); return false;">
+
+    <form id="converterForm">
         <label for="coordinates">GPS coordinates:</label>
         <input type="text" id="coordinates" name="coordinates" placeholder="latitude, longitude" required><br><br>
-        
         <button type="submit">Convert</button>
     </form>
+    
     <p id="result1"></p>
     <p id="result2"></p>
     <p id="result3"></p>
+    <strong><p id="message"></p></strong>
+
+    <script src="openlocationcode.js"></script>
+    
+    <script>
+        document.getElementById('converterForm').addEventListener('submit', (event)=> {
+            event.preventDefault();
+            convertToFullCode();
+        });
+
+        function convertToFullCode() {
+            const coordinates = document.getElementById('coordinates').value;
+            const [latitude, longitude] = coordinates.split(/[,\s]+/).map(Number);
+            if (isNaN(latitude) || isNaN(longitude)){ 
+                document.getElementById('message').innerText = `Please enter latitude, longitude`
+            }
+            else {
+                try {
+                    const result1 = encode(latitude, longitude);
+                    const result2 = encode(latitude, longitude, 11);
+                    const result3 = encode(latitude, longitude, 12);
+                    document.getElementById('result1').innerText = `13.5x13.5 meter area- OpenLocationCode:  ${result1}`;
+                    document.getElementById('result2').innerText = ` 2.8x3.5  meter area- OpenLocationCode:  ${result2}`;
+                    document.getElementById('result3').innerText = `0.35x0.35 meter area- OpenLocationCode:  ${result3}`;
+                    document.getElementById('message').innerText = ``
+                } catch (error) {
+                    document.getElementById('result1').innerText = `Error: ${error.message}`;
+                }
+            }
+        }    
+    </script>
+
 </body>
 </html>
