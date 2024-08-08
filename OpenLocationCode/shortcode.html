@@ -45,8 +45,10 @@
                     let CodeArea = decode(recovered);
                     let [true_latitude, true_longitude] = CodeArea.latlng();
                     console.log( true_latitude, true_longitude )
+                    let precise_latitude = true_latitude.toFixed(5);
+                    let precise_longitude = true_longitude.toFixed(5);
                     document.getElementById('message').innerText = ``;
-                    document.getElementById('good_result').innerText = `Good GPS Coordinates:  ${true_latitude},   ${true_longitude}`; 
+                    document.getElementById('good_result').innerText = `Good GPS Coordinates:  ${precise_latitude},   ${precise_longitude}`; 
                 } catch (error) {
                     document.getElementById('result').innerText = ``;
                     document.getElementById('message').innerText = `Error: ${error.message}`;
