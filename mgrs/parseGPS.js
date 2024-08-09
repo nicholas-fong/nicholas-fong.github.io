@@ -5,11 +5,14 @@
 import { LatLon } from './mgrs.js';
 
 export function parseGPS(inputString) {
-    // parse user input into latitude and longitude using regular expression
+    const regex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*,?\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
     const coordinates = inputString.split(/[,\s]+/);
-
-    if (coordinates.length != 2) { 
-    document.getElementById('message').textContent = "Please enter latitude, longitude"
+    
+    console.log(inputString)
+    console.log("regex", regex.test(inputString))
+    
+    if (!regex.test(inputString)) { 
+    document.getElementById('message').textContent = "Please enter latitude, longitude after hitting Refresh"
     }
     else {
     const latitude = parseFloat(coordinates[0]);
@@ -26,10 +29,10 @@ export function parseGPS(inputString) {
     const point = new LatLon(latitude, longitude);
     const utm = point.toUtm();
     const mgrs = utm.toMgrs();
-    console.log(mgrs);  //Mgrs class object {zone: 10, band: 'U, etc}
-    console.log(utm)
-    document.getElementById('response3').textContent = mgrs
-    document.getElementById('response4').textContent = utm
+    console.log(mgrs);
+    console.log(utm);
+    document.getElementById('response3').textContent = mgrs.toString(10).replace(/ /g, '');
+    document.getElementById('response4').textContent = utm;
 
     // double check: convert MGRS back to latitude longitude
     const latlon_from_mgrs = mgrs.toUtm().toLatLon();
