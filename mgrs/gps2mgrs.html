@@ -16,11 +16,11 @@
       This code relaxes to allow input to have spaces and lower case, which is not formal MGRS<p> 
     </p>
     
-    <div>
+    <form id="myForm">
     <label for="gpsInput">GPS lat lon:</label>
-    <input type="text" id="gpsInput" placeholder="latitude, longitude">
-    <button id="parseButton">Enter</button>
-    </div>
+    <input type="text" id="gpsInput" placeholder="latitude, longitude" required>
+    <button type=""submit>Enter</button>
+    </form>
 
     <br>
     <br>Degree Minutes Seconds:
@@ -36,9 +36,10 @@
     
   <script type="module">  // (ES6 syntax)
     import { parseGPS } from './parseGPS.js';
-    document.getElementById('parseButton').addEventListener('click', ()=> {
-      const inputString = document.getElementById('gpsInput').value ;
-      parseGPS(inputString);
+    document.getElementById('myForm').addEventListener('submit', (event)=> {
+      event.preventDefault();  
+      const gpsString = document.getElementById('gpsInput').value ;
+      parseGPS(gpsString);
         });
   </script>
 
