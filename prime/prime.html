@@ -9,18 +9,21 @@
 <body>
     <h1>Find prime numbers</h1>
     <p>        
-    <form>
+    <form id="myForm">
         <label for="numberID">Enter a number: </label>
-        <input type="number" id="numberID" placeholder="integer">
-        <button type="button" id="buttonId" >Find</button>
+        <input type="number" id="numberID" placeholder="integer" required>
+        <button type="submit" >Find</button>
     </form>
         
-    <script type="module" > //ES6 ECMAScript
-    import {findAndDisplayPrimes} from './prime.js';
+    <br><div id="display"></div>
+    <br>
+    <div id="response"></div> 
 
-    document.getElementById('buttonId').addEventListener('click', () => {
-        const input_value = document.getElementById('numberID').value; 
-        const num = parseInt(input_value, 10); 
+    <script>
+    document.getElementById('myForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const num = parseInt(document.getElementById('numberID').value, 10);
+        console.log(num)
         // Clear previous responses
         document.getElementById('response').innerText = '';
         document.getElementById('display').innerText = '';
@@ -29,9 +32,7 @@
     });
     </script>
 
-    <br><div id="display"></div>
-    <br>
-    <div id="response"></div> 
+    <script src="./prime.js"></script>
     
 </body>
 </html>

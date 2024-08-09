@@ -50,9 +50,7 @@ function findNearbyPrimes(target, limit) {
     return primes.sort((a, b) => a - b);
 }
 
-// ES6 ECMAScript
-
-export function findAndDisplayPrimes(num) {
+function findAndDisplayPrimes(num) {
     const primesNearNum = findNearbyPrimes(num, 200);
     
     document.getElementById("display").innerHTML = `Prime numbers near ${num}:<br><br>${primesNearNum.join(", ")}`;
