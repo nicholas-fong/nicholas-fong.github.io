@@ -1,6 +1,6 @@
 // event listener for submit button
 
-document.addEventListener('submit', (event)=> {
+document.getElementById('myForm').addEventListener('submit', (event)=> {
     event.preventDefault();
     calculateDistance();
   });
