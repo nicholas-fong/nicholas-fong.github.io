@@ -1,7 +1,10 @@
 // calculator3.js
 import { calculateAnnualInterestRate } from './utilities.js';
 
-document.getElementById('buttonId').addEventListener('click', ()=> {handleForm()} );
+document.getElementById('buttonId').addEventListener('click', (event)=> { 
+    event.preventDefault(); 
+    handleForm(); 
+    } );
 
 function handleForm () {
     const principal = parseFloat(document.getElementById('principal').value);
