@@ -16,28 +16,20 @@
     </form>
         
     <script type="module" > //ES6 ECMAScript
-        import {findAndDisplayPrimes} from './prime.js';
-    
-        const findButton = document.getElementById('buttonId');
-    
-        findButton.addEventListener('click', () => {
-            const numberInput = document.getElementById('numberID').value;
-            const number = parseInt(numberInput, 10);
-            console.log(number)
-            
-            // Clear previous response
-            document.getElementById('response').innerText = '';
+    import {findAndDisplayPrimes} from './prime.js';
 
-            // Check if the input is a valid number
-            if (isNaN(number)) {
-                document.getElementById('response').innerText = 'Please enter a valid number';
-            } else {
-                findAndDisplayPrimes(number);
-            }
-        });
+    document.getElementById('buttonId').addEventListener('click', () => {
+        const input_value = document.getElementById('numberID').value; 
+        const num = parseInt(input_value, 10); 
+        // Clear previous responses
+        document.getElementById('response').innerText = '';
+        document.getElementById('display').innerText = '';
+        // Find prime and display
+        findAndDisplayPrimes(num);
+    });
     </script>
 
-    <div id="display"></div>
+    <br><div id="display"></div>
     <br>
     <div id="response"></div> 
     

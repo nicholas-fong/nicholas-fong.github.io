@@ -52,14 +52,13 @@ function findNearbyPrimes(target, limit) {
 
 // ES6 ECMAScript
 
-export function findAndDisplayPrimes() {
-    const num = parseInt(document.getElementById("numberID").value);
-    
+export function findAndDisplayPrimes(num) {
     const primesNearNum = findNearbyPrimes(num, 200);
-    document.getElementById("display").innerHTML = `<br>Prime numbers near ${num}:<br><br>${primesNearNum.join(", ")}`;
+    
+    document.getElementById("display").innerHTML = `Prime numbers near ${num}:<br><br>${primesNearNum.join(", ")}`;
     
     if (isPrime(num)) {
-        document.getElementById("response").innerHTML = `Your number <em>${num}</em> is a prime<p>F5/Refresh for another prime calculation`; 
+        document.getElementById("response").innerHTML = `<strong>${num}</strong> is a prime.`; 
     }; 
 }
 
