@@ -10,11 +10,11 @@
     <h2>Return on Investment Calculator</h2>
 
     Simple HTML/JavaScript in one file.<br>
-    Use of EventListener and Arrow function<br>
+    Use of EventListener for form submit and Arrow function<br>
     Assume interest payment interval is once a year<br>
     can run without http.server<br><br>
 
-    <form id="interestform">
+    <form id="myForm">
         <label for="principal">Principal amount</label>
         <input type="number" id="principal" placeholder="Principal" required><br><br>
         <label for="final">Final amount</label>
@@ -28,7 +28,7 @@
     <strong><p id="result"></p></strong>
 
     <script>
-        document.getElementById('interestform').addEventListener('submit', (event) => {
+        document.getElementById('myForm').addEventListener('submit', (event) => {
             event.preventDefault();
             const principal = parseFloat(document.getElementById('principal').value);
             const finalAmount = parseFloat(document.getElementById('final').value);
