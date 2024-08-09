@@ -7,17 +7,17 @@
 </head>
 <body>
 
-<h2>Calculate distance between 2 GPS coordinates<br>using Haversine formula</h2>
+<h2>Calculate great-circle distance between 2 GPS coordinates<br>using haversine formula</h2>
 
-<div>
+<form id="myForm">
     <label for="coord1">Coordinates 1:</label>
-    <input type="text" id="coord1" placeholder="latitude, longitude">
+    <input type="text" id="coord1" placeholder="GPS latitude, longitude" required>
     <br><br>
     <label for="coord2">Coordinates 2:</label>
-    <input type="text" id="coord2" placeholder="latitude, longitude">
+    <input type="text" id="coord2" placeholder="GPS latitude, longitude" required>
     <br><br>
-    <button type="button" id="calculateButton">Calculate Distance</button>
-</div>
+    <button type="submit">Calculate Distance</button>
+</form>
 
 <p id="result"></p>
 <strong><p id="message"></p></strong>
