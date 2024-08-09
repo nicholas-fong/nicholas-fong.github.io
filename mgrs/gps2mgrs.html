@@ -13,7 +13,7 @@
       dms.js latlon-ellipsoidal-datum.js latlon-ellipsoidal.js mgrs.js utm.js vector3d.js <br>  
       source 1 - https://github.com/chrisveness/geodesy<br>
       source 2 - https://cdn.jsdelivr.net/npm/geodesy@2.4.0/<br>
-      This code relaxes to allows input to have spaces and lower case, which is not formal MGRS<p> 
+      This code relaxes to allow input to have spaces and lower case, which is not formal MGRS<p> 
     </p>
     
     <div>
@@ -37,7 +37,8 @@
   <script type="module">  // (ES6 syntax)
     import { parseGPS } from './parseGPS.js';
     document.getElementById('parseButton').addEventListener('click', ()=> {
-        parseGPS(document.getElementById('gpsInput').value);
+      const inputString = document.getElementById('gpsInput').value ;
+      parseGPS(inputString);
         });
   </script>
 
