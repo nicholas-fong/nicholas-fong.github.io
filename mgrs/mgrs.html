@@ -7,10 +7,59 @@
 </head>
 
 <body>
-<h1>MGRS Coordinate converter</h1>
-<ul>
-    <li><a href="./gps2mgrs.html">GPS Lat Lon to MGRS</a></li>
-    <p></p>
-    <li><a href="./mgrs2gps.html">MGRS to GPS Lat Lon</a></li>
-</ul>
+    <h2>MGRS to GPS</h2>
+
+    <p>Using local copies of geodesy library<br> 
+    dms.js latlon-ellipsoidal-datum.js latlon-ellipsoidal.js mgrs.js utm.js vector3d.js <br>  
+    source 1 - https://github.com/chrisveness/geodesy<br>
+    source 2 - https://cdn.jsdelivr.net/npm/geodesy@2.4.0/<br>
+    Norway (zone 32V) and Svalbard (zone 33X) are correctly converted<br>
+    This code relaxes to allow MGRS to have spaces and lower case, which is not formal MGRS standard<p></p>
+    
+    <form id="myForm2">
+    <label for="MGRSinput">MGRS:</label>
+    <input type="string" id="MGRSinput" placeholder="10UEV0000027455" required>
+    <button type="submit">Enter</button>
+    </form>
+    
+    <br><div id="response5"></div>
+    <br><div id="response6"></div>
+    <br><b><div id="message2"></div></b></div>
+    <br>
+
+    <form id="myForm">
+    <label for="gpsInput">GPS lat lon:</label>
+    <input type="text" id="gpsInput" placeholder="latitude, longitude" required>
+    <button type="submit">Enter</button>
+    </form>
+    <br><div id="response1"></div>
+    <br><div id="response2"></div>
+    <br><div id="response3"></div>
+    <br><div id="response4"></div>
+    <b><div id="message1"></div></b></div>
+
+    <script type="module">
+        import { parseGPS } from './parseGPS.js';
+        import { parseMGRS } from './parseMGRS.js';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const form1 = document.getElementById('myForm');
+            document.getElementById('myForm').addEventListener('submit', (event)=> {
+                event.preventDefault();
+                const gpsString = document.getElementById('gpsInput').value ;
+                parseGPS(gpsString);
+            }); //end of form event listener
+
+            const form2 = document.getElementById('myForm2');
+            document.getElementById('myForm2').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const mgrsString = document.getElementById('MGRSinput').value;  
+                parseMGRS(mgrsString);
+            });  //end of form event event listener
+ 
+        }); //end of DOMContentLoaded Listener (outermost layer of nested EventListener)
+    </script>
+
 </body>
+</html>
