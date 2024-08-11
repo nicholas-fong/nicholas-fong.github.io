@@ -19,20 +19,20 @@
     <br>
     <div id="response"></div> 
 
+    <script src="./prime.js"></script>
+
     <script>
-    document.getElementById('myForm').addEventListener('submit', (event) => {
-        event.preventDefault();
-        const num = parseInt(document.getElementById('numberID').value, 10);
-        console.log(num)
-        // Clear previous responses
-        document.getElementById('response').innerText = '';
-        document.getElementById('display').innerText = '';
-        // Find prime and display
-        findAndDisplayPrimes(num);
-    });
+        document.getElementById('myForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const num = parseInt(document.getElementById('numberID').value, 10);
+            console.log(num)
+            // Clear previous responses
+            document.getElementById('response').innerText = '';
+            document.getElementById('display').innerText = '';
+            // Find prime and display
+            findAndDisplayPrimes(num);
+        });
     </script>
 
-    <script src="./prime.js"></script>
-    
 </body>
 </html>
