@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Location Code</title>
+</head>
+
+<body>
+    <h3>ShortCode to FullCode recovery</h3>
+    <form id="myform1" >
+        <label for="shortcode">Shortcode:</label>
+        <input type="text" id="shortcode" name="shortcode" placeholder="62QM+QJ" required><br><br>
+        <label for="reference">a nearby "reference" coordinates:</label>
+        <input type="text" id="reference" name="reference" placeholder="latitude, longitude" required><br><br>
+        <button type="submit">Convert</button>
+    </form>
+    <p id="result1A"></p>
+    <p id="result1"></p>
+    <p id="message1"></p>
+    
+
+    <h3>FullCode to GPS</h3>
+    <form id="myform2">
+        <label for="OLC">OpenLocationCode:</label>
+        <input type="text" id="OLC" name="OLC" placeholder="84XV62QM+QJ" required><br><br>
+        <button type="submit">Convert</button>
+    </form>
+    <p id="result2"></p>
+    <p id="message2"></p>
+
+    <h3>GPS to OpenLocationCode</h3>
+    <form id="myform3">
+        <label for="coordinates">GPS coordinates:</label>
+        <input type="text" id="coordinates" name="coordinates" placeholder="latitude, longitude" required><br><br>
+        <button type="submit">Convert</button>
+    </form>
+    <p id="result3"></p>
+    <p id="result4"></p>
+    <p id="result5"></p>
+    <strong><p id="message3"></p></strong>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // nested EventListeners
+        document.getElementById('myform1').addEventListener('submit', (event)=> {
+        event.preventDefault();
+        convertToFullCode();
+        });
+        
+        function convertToFullCode() {
+            const shortcode = document.getElementById('shortcode').value;
+            const reference = document.getElementById('reference').value;
+            const [latitude, longitude] = reference.split(/[,\s]+/).map(Number);
+            if (isNaN(latitude) || isNaN(longitude)){ 
+                document.getElementById('result1').innerText = ``;
+                document.getElementById('message1').innerText = `Please enter latitude, longitude`
+            }
+            else {
+                try {
+                    const recovered = recoverNearest(shortcode, latitude, longitude);
+                    document.getElementById('message1').innerText = ``;
+                    document.getElementById('result1').innerText = `Full OpenLocationCode: ${recovered}`;
+                    console.log(recovered)
+                    let CodeArea = decode(recovered);
+                    let [true_latitude, true_longitude] = CodeArea.latlng();
+                    console.log( true_latitude, true_longitude )
+                    let precise_latitude = true_latitude.toFixed(5);
+                    let precise_longitude = true_longitude.toFixed(5);
+                    document.getElementById('message1').innerText = ``;
+                    document.getElementById('result1A').innerText = `Recovered FullCode: ${recovered}`
+                    document.getElementById('result1').innerText = `Recovered GPS Coordinates:  ${precise_latitude},   ${precise_longitude}`; 
+                } catch (error) {
+                    document.getElementById('result1').innerText = ``;
+                    document.getElementById('message1').innerText = `Error: ${error.message}`;
+                }
+            }
+        } //end of form1 event
+
+        document.getElementById('myform2').addEventListener('submit', (event)=> {
+            event.preventDefault();
+            const open_code = document.getElementById('OLC').value;
+            decoder(open_code);
+        });
+        function decoder(open_code) {
+            const regex1 = /(^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+[23456789CFGHJMPQRVWX]{2,7})(\s|$)/;
+            const regex2 = /(^|\s)([23456789C][23456789CFGHJMPQRV][23456789CFGHJMPQRVWX]{6}\+)(\s|$)/;
+            if (regex1.test(open_code) || regex2.test(open_code)) {
+                console.log(`regex check passed  ${open_code}`)
+            } else {console.log(`regex check failed  ${open_code}`) }
+
+            try {
+                let CodeArea = decode(open_code);
+                let [latitude, longitude] = CodeArea.latlng();
+                let result = latitude.toFixed(5) + ', ' + longitude.toFixed(5);
+                document.getElementById('message2').innerText = ``;
+                document.getElementById('result2').innerText = `GPS Coordinates:  ${result}`;
+            } catch (error) {
+                document.getElementById('result2').innerText = ``;
+                document.getElementById('message2').innerText = `Error: ${error.message}`;
+            }
+        }  //end of form2 event
+
+        document.getElementById('myform3').addEventListener('submit', (event)=> {
+            event.preventDefault();
+            const coordinates = document.getElementById('coordinates').value;
+            const regex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*,?\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
+            const [latitude, longitude] = coordinates.split(/[,\s]+/).map(Number);
+            
+            if  (!regex.test(coordinates) ) { 
+                document.getElementById('message3').innerText = `Please enter latitude, longitude after hitting refresh`
+            }
+            else {
+                const result1 = encode(latitude, longitude);
+                const result2 = encode(latitude, longitude, 11);
+                const result3 = encode(latitude, longitude, 12);
+                document.getElementById('result3').innerText = `13.5x13.5 meter area- OpenLocationCode:  ${result1}`;
+                document.getElementById('result4').innerText = ` 2.8x3.5  meter area- OpenLocationCode:  ${result2}`;
+                document.getElementById('result5').innerText = `0.35x0.35 meter area- OpenLocationCode:  ${result3}`;
+                document.getElementById('message3').innerText = ``
+            } 
+            }
+        );  //end of form3 event
+
+    } ); //end of DOMContentLoaded
+
+</script>
+
+<script src="./openlocationcode.js"></script>
+
+</body>
+</html>
