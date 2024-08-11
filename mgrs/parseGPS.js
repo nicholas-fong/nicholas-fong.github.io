@@ -36,7 +36,7 @@ export function parseGPS(inputString) {
     console.log(mgrs);
     console.log(utm);
     document.getElementById('response3').textContent = `MGRS: ${mgrs.toString(10).replace(/ /g, '')}`;
-    document.getElementById('response4').textContent = `UTM N/S hemisphere notation ${utm}`;
+    document.getElementById('response4').textContent = `UTM standard notation (N/S) ${utm}`;
 
     // double back check: convert MGRS back to latitude longitude
     const latlon_from_mgrs = mgrs.toUtm().toLatLon();
