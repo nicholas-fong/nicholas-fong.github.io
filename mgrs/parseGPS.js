@@ -12,13 +12,17 @@ export function parseGPS(inputString) {
     console.log("regex", regex.test(inputString))
     
     if (!regex.test(inputString)) { 
-    document.getElementById('message').textContent = "Please enter latitude, longitude after hitting Refresh"
+    document.getElementById('message1').textContent = "Please enter latitude, longitude after hitting Refresh"
+    document.getElementById('response1').textContent = "";
+    document.getElementById('response2').textContent = "";
+    document.getElementById('response3').textContent = "";
+    document.getElementById('response4').textContent = "";
     }
     else {
     const latitude = parseFloat(coordinates[0]);
     const longitude = parseFloat(coordinates[1]);
     console.log(`user_input: ${latitude}, ${longitude}`);
-    document.getElementById('message').textContent = ""
+    document.getElementById('message1').textContent = " ";
         
     const p1 = new LatLon(latitude, longitude);
     console.log(p1.toString('dms'));
@@ -34,8 +38,8 @@ export function parseGPS(inputString) {
     document.getElementById('response3').textContent = mgrs.toString(10).replace(/ /g, '');
     document.getElementById('response4').textContent = utm;
 
-    // double check: convert MGRS back to latitude longitude
+    // double back check: convert MGRS back to latitude longitude
     const latlon_from_mgrs = mgrs.toUtm().toLatLon();
     console.log(`latlon from MGRS": ${latlon_from_mgrs.lat}, ${latlon_from_mgrs.lon}`);
-      }
+    }
 }
