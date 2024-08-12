@@ -48,16 +48,34 @@
         convertToFullCode();
         });
         
+        function preprocessString(input) {
+            // Find the index of the first space in the string
+            const index = input.indexOf(' ');
+            // If a space is found, return the substring before the space; otherwise, return the original string
+            if (index !== -1) {
+                return input.substring(0, index);
+            } else {
+                return input;
+            }
+        }
+
         function convertToFullCode() {
-            const shortcode = document.getElementById('shortcode').value;
+            let shortcode = document.getElementById('shortcode').value;
+            shortcode = preprocessString(shortcode);
+            const regex = /^\w{4}\+(\w{2,}|)$/;  //this works, do not delete
+            console.log (shortcode)
             const reference = document.getElementById('reference').value;
             const [latitude, longitude] = reference.split(/[,\s]+/).map(Number);
+            
             if (isNaN(latitude) || isNaN(longitude)){ 
                 document.getElementById('result1').innerText = ``;
                 document.getElementById('message1').innerText = `Please enter latitude, longitude`
             }
             else {
-                try {
+                if ( shortcode.match(regex))  {
+                    try {
+                    //shortcode = match[0].trim();
+                    //console.log(shortcode);    
                     const recovered = recoverNearest(shortcode, latitude, longitude);
                     document.getElementById('message1').innerText = ``;
                     document.getElementById('result1').innerText = `Full OpenLocationCode: ${recovered}`;
@@ -65,14 +83,19 @@
                     let CodeArea = decode(recovered);
                     let [true_latitude, true_longitude] = CodeArea.latlng();
                     console.log( true_latitude, true_longitude )
-                    let precise_latitude = true_latitude.toFixed(5);
-                    let precise_longitude = true_longitude.toFixed(5);
+                    const precise_latitude = true_latitude.toFixed(5);
+                    const precise_longitude = true_longitude.toFixed(5);
                     document.getElementById('message1').innerText = ``;
-                    document.getElementById('result1A').innerText = `Recovered FullCode: ${recovered}`
-                    document.getElementById('result1').innerText = `Recovered GPS Coordinates:  ${precise_latitude},   ${precise_longitude}`; 
-                } catch (error) {
+                    document.getElementById('result1A').innerText = `Recovered FullCode: ${recovered} `;
+                    document.getElementById('result1').innerText = `Recovered GPS Coordinates:  ${precise_latitude},   ${precise_longitude}`;
+                    } catch (error) {
+                        document.getElementById('result1').innerText = ``;
+                        document.getElementById('message1').innerText = `Error: ${error.message}`;
+                    }
+                } else { 
+                    document.getElementById('result1A').innerText = ``; 
                     document.getElementById('result1').innerText = ``;
-                    document.getElementById('message1').innerText = `Error: ${error.message}`;
+                    document.getElementById('message1').innerText = `Error: invalid Short Code ${shortcode} `;
                 }
             }
         } //end of form1 event
