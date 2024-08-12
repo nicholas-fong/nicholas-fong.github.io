@@ -17,6 +17,7 @@ export function parseGPS(inputString) {
     document.getElementById('response2').textContent = "";
     document.getElementById('response3').textContent = "";
     document.getElementById('response4').textContent = "";
+    document.getElementById('response5').textContent = "";
     }
     else {
     const latitude = parseFloat(coordinates[0]);
@@ -34,9 +35,14 @@ export function parseGPS(inputString) {
     const utm = point.toUtm();
     const mgrs = utm.toMgrs();
     console.log(mgrs);
+    const band = mgrs['band'];
+    console.log(band)
     console.log(utm);
+    const NATO_UTM = `${utm['zone']} ${mgrs['band']} ${parseInt(utm['easting']).toString()} ${parseInt(utm ['northing']).toString()}` ;
+    console.log ( NATO_UTM )
     document.getElementById('response3').textContent = `MGRS: ${mgrs.toString(10).replace(/ /g, '')}`;
-    document.getElementById('response4').textContent = `UTM standard notation (N/S) ${utm}`;
+    document.getElementById('response4').textContent =  `UTM hemisphere notation ${utm}`;
+    document.getElementById('response4A').textContent = `UTM band letter notation ${NATO_UTM} `;
 
     // double back check: convert MGRS back to latitude longitude
     const latlon_from_mgrs = mgrs.toUtm().toLatLon();
