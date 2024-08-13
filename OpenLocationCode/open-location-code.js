@@ -1,4 +1,3 @@
-
 // https://github.com/google/open-location-code/
 // python library
 // https://github.com/google/open-location-code/blob/main/python/openlocationcode/openlocationcode.py
