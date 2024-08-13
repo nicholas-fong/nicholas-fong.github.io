@@ -41,8 +41,8 @@ export function parseGPS(inputString) {
     const NATO_UTM = `${utm['zone']} ${mgrs['band']} ${parseInt(utm['easting']).toString()} ${parseInt(utm ['northing']).toString()}` ;
     console.log ( NATO_UTM )
     document.getElementById('response3').textContent = `MGRS: ${mgrs.toString(10).replace(/ /g, '')}`;
-    document.getElementById('response4').textContent =  `UTM hemisphere notation ${utm}`;
-    document.getElementById('response4A').textContent = `UTM band letter notation ${NATO_UTM} `;
+    document.getElementById('response4').textContent =  `UTM hemi notation ${utm}`;
+    document.getElementById('response4A').textContent = `UTM band notation ${NATO_UTM} `;
 
     // double back check: convert MGRS back to latitude longitude
     const latlon_from_mgrs = mgrs.toUtm().toLatLon();
