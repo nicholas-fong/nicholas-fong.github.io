@@ -9,13 +9,10 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
 function handleForm () {
     const principal = parseFloat(document.getElementById('principal').value);
     const finalAmount = parseFloat(document.getElementById('finalAmount').value);
-    const years = parseInt(document.getElementById('years').value, 10);
+    const years = parseFloat(document.getElementById('years').value, 10);
     const timesInput = document.getElementById('times').value;
     const result = document.getElementById('result'); // Ensure result is defined
 
-    // Check if "times" input is empty (strict equality), initializes to 1 if empty
-    // use compact ternary (or conditional) operator: condition ? exprIfTrue : exprIfFalse
-    // parse text to integer assuming radix 10
     const times = timesInput === "" ? 1 : parseInt(timesInput, 10);
 
     if (isNaN(principal) || isNaN(finalAmount) || isNaN(years) || isNaN(times)) {
