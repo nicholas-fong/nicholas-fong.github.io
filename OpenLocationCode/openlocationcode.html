@@ -48,7 +48,7 @@
         convertToFullCode();
         });
         
-        function preprocessString(input) {
+        function preprocessString(input) {      //filter out trailing information 
             // Find the index of the first space in the string
             const index = input.indexOf(' ');
             // If a space is found, return the substring before the space; otherwise, return the original string
@@ -65,8 +65,9 @@
             const regex = /^(\w{4}|\w{2})\+(\w{2,}|)$/;  //this works, do not delete
             console.log (shortcode)
             if (  shortcode.match(regex) ) { console.log ("regex match True")};
-            const reference = document.getElementById('reference').value;
-            const [latitude, longitude] = reference.split(/[,\s]+/).map(Number);
+            let gpsstring = document.getElementById('reference').value;
+            gpsstring = gpsstring.replace(/\(|\)/g, "");
+            const [latitude, longitude] = gpsstring.split(/[,\s]+/).map(Number);
             
             if (isNaN(latitude) || isNaN(longitude)){ 
                 document.getElementById('result1').innerText = ``;
