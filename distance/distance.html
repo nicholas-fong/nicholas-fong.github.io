@@ -29,8 +29,10 @@
     });
 
     function calculateDistance() {
-        const coord1 = document.getElementById('coord1').value;
-        const coord2 = document.getElementById('coord2').value;
+        let coord1 = document.getElementById('coord1').value;
+        coord1 = coord1.replace(/\(|\)/g, "");
+        let coord2 = document.getElementById('coord2').value;
+        coord2 = coord2.replace(/\(|\)/g, "");
         const regex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*,?\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
 
         if (!regex.test(coord1) || !regex.test(coord2)) {
