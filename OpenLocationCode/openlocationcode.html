@@ -126,7 +126,8 @@
 
         document.getElementById('myform3').addEventListener('submit', (event)=> {
             event.preventDefault();
-            const coordinates = document.getElementById('coordinates').value;
+            let coordinates = document.getElementById('coordinates').value;
+            coordinates = coordinates.replace(/\(|\)/g, "");
             const regex = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)\s*,?\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/;
             const [latitude, longitude] = coordinates.split(/[,\s]+/).map(Number);
             
