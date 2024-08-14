@@ -7,27 +7,27 @@
 </head>
 
 <body>
-    <h2>MGRS to GPS</h2>
+    <h2>MGRS to GPS and vice versa</h2>
 
-    <p>Using local copies of geodesy library<br> 
+    <p>Using local copies of geodesy library:<br> 
     dms.js latlon-ellipsoidal-datum.js latlon-ellipsoidal.js mgrs.js utm.js vector3d.js <br>  
-    source 1 - https://github.com/chrisveness/geodesy<br>
-    source 2 - https://cdn.jsdelivr.net/npm/geodesy@2.4.0/<br>
+    source - https://github.com/chrisveness/geodesy<br>
     Norway (zone 32V) and Svalbard (zone 33X) are correctly converted<br>
-    This code relaxes to allow MGRS to have spaces and lower case, which is not formal MGRS standard<p></p>
+    This code allows MGRS to have spaces and lower case, which is not formal MGRS standard<p></p>
     
-    <form id="myForm2">
+    <form id="MGRSform">
     <label for="MGRSinput">MGRS:</label>
     <input type="string" id="MGRSinput" placeholder="10UEV0000027455" required>
     <button type="submit">Enter</button>
     </form>
-    
     <br><div id="response5"></div>
     <br><div id="response6"></div>
-    <br><b><div id="message2"></div></b></div>
+    <br><div id="response7"></div>
+    <br><div id="response8"></div>
+    <br><b><div id="message1"></div></b></div>
     <br>
 
-    <form id="myForm">
+    <form id="GSPform">
     <label for="gpsInput">GPS lat lon:</label>
     <input type="text" id="gpsInput" placeholder="latitude, longitude" required>
     <button type="submit">Enter</button>
@@ -37,29 +37,27 @@
     <br><div id="response3"></div>
     <br><div id="response4"></div>
     <br><div id="response4A"></div>
-    <b><div id="message1"></div></b></div>
+    <b><div id="message2"></div></b></div>
 
     <script type="module">
         import { parseGPS } from './parseGPS.js';
         import { parseMGRS } from './parseMGRS.js';
-        
+
         document.addEventListener('DOMContentLoaded', function() {
 
-            const form1 = document.getElementById('myForm');
-            document.getElementById('myForm').addEventListener('submit', (event)=> {
+            document.getElementById('MGRSform').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const mgrsString = document.getElementById('MGRSinput').value;  
+                    parseMGRS(mgrsString);
+            });  //end of MGRS event listener
+
+            document.getElementById('GSPform').addEventListener('submit', (event)=> {
                 event.preventDefault();
                 const gpsString = document.getElementById('gpsInput').value ;
                 parseGPS(gpsString);
-            }); //end of form event listener
-
-            const form2 = document.getElementById('myForm2');
-            document.getElementById('myForm2').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const mgrsString = document.getElementById('MGRSinput').value;  
-                parseMGRS(mgrsString);
-            });  //end of form event event listener
- 
-        }); //end of DOMContentLoaded Listener (outermost layer of nested EventListener)
+            }); //end of GPS event listener
+            
+        }); //end of DOMContentLoaded Listener
     </script>
 
 </body>
