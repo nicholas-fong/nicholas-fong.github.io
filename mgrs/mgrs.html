@@ -35,8 +35,8 @@
     <br><div id="response1"></div>
     <br><div id="response2"></div>
     <br><div id="response3"></div>
-    <br><div id="response4"></div>
     <br><div id="response4A"></div>
+    <br><div id="response4"></div>
     <b><div id="message2"></div></b></div>
 
     <script type="module">
@@ -53,7 +53,8 @@
 
             document.getElementById('GSPform').addEventListener('submit', (event)=> {
                 event.preventDefault();
-                const gpsString = document.getElementById('gpsInput').value ;
+                let gpsString = document.getElementById('gpsInput').value ;
+                gpsString = gpsString.replace(/\(|\)/g, "");
                 parseGPS(gpsString);
             }); //end of GPS event listener
             
