@@ -1,4 +1,3 @@
-//parseGPS.js
 //import LatLon from './latlon-spherical.js'; better to import from mgrs.js
 //import Utm from './utm.js';
 //import LatLonEllipsoidal from './latlon-ellipsoidal.js'
@@ -12,18 +11,18 @@ export function parseGPS(inputString) {
     console.log("regex", regex.test(inputString))
     
     if (!regex.test(inputString)) { 
-    document.getElementById('message1').textContent = "Please enter latitude, longitude after hitting Refresh"
+    document.getElementById('message2').textContent = "Please enter valid latitude, longitude"
     document.getElementById('response1').textContent = "";
     document.getElementById('response2').textContent = "";
     document.getElementById('response3').textContent = "";
     document.getElementById('response4').textContent = "";
-    document.getElementById('response5').textContent = "";
+    document.getElementById('response4A').textContent = "";
     }
     else {
     const latitude = parseFloat(coordinates[0]);
     const longitude = parseFloat(coordinates[1]);
     console.log(`user_input: ${latitude}, ${longitude}`);
-    document.getElementById('message1').textContent = " ";
+    document.getElementById('message2').textContent = "";
         
     const p1 = new LatLon(latitude, longitude);
     console.log(p1.toString('dms'));
@@ -35,17 +34,15 @@ export function parseGPS(inputString) {
     const utm = point.toUtm();
     const mgrs = utm.toMgrs();
     console.log(mgrs);
-    const band = mgrs['band'];
-    console.log(band)
     console.log(utm);
     const NATO_UTM = `${utm['zone']} ${mgrs['band']} ${parseInt(utm['easting']).toString()} ${parseInt(utm ['northing']).toString()}` ;
     console.log ( NATO_UTM )
     document.getElementById('response3').textContent = `MGRS: ${mgrs.toString(10).replace(/ /g, '')}`;
-    document.getElementById('response4').textContent =  `UTM hemi notation ${utm}`;
-    document.getElementById('response4A').textContent = `UTM band notation ${NATO_UTM} `;
+    document.getElementById('response4').textContent =  `UTM Hemi notation ${utm}`;
+    document.getElementById('response4A').textContent = `UTM Band notation ${NATO_UTM} `;
 
     // double back check: convert MGRS back to latitude longitude
     const latlon_from_mgrs = mgrs.toUtm().toLatLon();
-    console.log(`latlon from MGRS": ${latlon_from_mgrs.lat}, ${latlon_from_mgrs.lon}`);
+    console.log(`double back: latlon from MGRS": ${latlon_from_mgrs.lat}, ${latlon_from_mgrs.lon}`);
     }
 }
