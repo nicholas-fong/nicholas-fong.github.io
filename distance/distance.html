@@ -39,13 +39,15 @@
             alert('Please enter valid GPS latitude and longitude coordinates.');
             console.log("regex test failed")
         } else {
-        const coordinates1 = coord1.split(/[,\s]+/).map(Number);
-        const coordinates2 = coord2.split(/[,\s]+/).map(Number);
+        
+            console.log("regex test passed");
+            const coordinates1 = coord1.split(/[,\s]+/).map(Number);
+            const coordinates2 = coord2.split(/[,\s]+/).map(Number);
 
-        const lat1 = (coordinates1[0]);
-        const lon1 = (coordinates1[1]);
-        const lat2 = (coordinates2[0]);
-        const lon2 = (coordinates2[1]);
+            const lat1 = (coordinates1[0]);
+            const lon1 = (coordinates1[1]);
+            const lat2 = (coordinates2[0]);
+            const lon2 = (coordinates2[1]);
 
             if (coordinates1.length !== 2 || coordinates2.length !== 2) { 
                 document.getElementById('message').textContent = "Please enter latitude, longitude";
@@ -63,6 +65,8 @@
         }
     }
 
+    // unnecessarily complicated, a simple function will do.
+    // why not, afterall, JavaScript is a relative of Java, which is class crazy.
     class HaversineCalculator {
         static haversineDistance(lat1, lon1, lat2, lon2) {
             const radius = 6371000.0; // Earth's radius in meters
