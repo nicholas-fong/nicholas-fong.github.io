@@ -25,4 +25,9 @@ function handleForm () {
 function calculateAnnualInterestRate (principal, finalAmount, times, years) {
     const rate = times * (Math.pow(finalAmount / principal, 1 / (times * years)) - 1) * 100;
     return rate.toFixed(2);
+    //if times == 1; formula can be simplified to
+    //rate = Math.pow(finalAmount / principal, 1 / duration) - 1;
+    //interest = rate * 100;
+    //alternate formula:
+    //interest = (100*(Math.exp((Math.log(finalAmount)-Math.log(principal))/duration)-1))  ; 
 };
